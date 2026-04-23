@@ -11,39 +11,32 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Compilation du projet Maven...'
-                sh 'mvn clean compile'
+                echo 'Compilation...'
+                bat 'mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Exécution des tests...'
-                sh 'mvn test'
+                echo 'Tests...'
+                bat 'mvn test'
             }
         }
 
         stage('Package') {
             steps {
-                echo 'Packaging de l\'application...'
-                sh 'mvn package'
-            }
-        }
-
-        stage('Docker Build') {
-            steps {
-                echo 'Construction de l\'image Docker...'
-                sh 'docker build -t tpjavapipeline .'
+                echo 'Packaging...'
+                bat 'mvn package'
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline exécuté avec succès !'
+            echo 'Pipeline réussi !'
         }
         failure {
-            echo 'Échec du Pipeline.'
+            echo 'Pipeline échoué !'
         }
     }
 }
